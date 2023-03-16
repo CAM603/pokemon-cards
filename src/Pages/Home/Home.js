@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, LinearProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -90,7 +90,22 @@ const Home = () => {
         setFilters(value);
     };
 
-    let filteredPics = pokemon.filter((pokemon) => {
+    const generateControls = () => (
+        <div className="controls-container">
+            <RotatingImage className="main-pokemon" pictures={filteredPics} alt="test" setIdCallback={setIdCallback} />
+            {showDetails ? (
+                <Link to={`/pokemon-list/${id}`} className="pokemon-link">
+                    <Button className="choose-button" size="large" style={{ backgroundColor: "#3269B2", fontWeight: "bold" }} variant="contained">
+                        Choose
+                    </Button>
+                </Link>
+            ) : (
+                <TypeFilter filters={filters} selectFilter={selectFilter} />
+            )}
+        </div>
+    );
+
+    const filteredPics = pokemon.filter((pokemon) => {
         if (filters.length) {
             return filters.includes(pokemon.type);
         } else {
@@ -98,26 +113,7 @@ const Home = () => {
         }
     });
 
-    if (filters.length) {
-        filteredPics = filteredPics.filter((pokemon) => filters.includes(pokemon.type));
-    }
-    if (!loading)
-        return (
-            <div className="home-page">
-                <div className="controls-container">
-                    <RotatingImage className="main-pokemon" pictures={filteredPics} alt="test" setIdCallback={setIdCallback} />
-                    {showDetails ? (
-                        <Link to={`/pokemon-list/${id}`} className="pokemon-link">
-                            <Button className="choose-button" size="large" style={{ backgroundColor: "#3269B2", fontWeight: "bold" }} variant="contained">
-                                Choose
-                            </Button>
-                        </Link>
-                    ) : (
-                        <TypeFilter filters={filters} selectFilter={selectFilter} />
-                    )}
-                </div>
-            </div>
-        );
+    return <div className={`home-page ${loading ? "loading" : ""}`}>{loading ? <LinearProgress /> : generateControls()}</div>;
 };
 
 export default Home;
