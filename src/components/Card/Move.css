@@ -1,0 +1,10 @@
+.move {
+    height: 50%;
+    font-weight: bold;
+    padding-top: .5rem;
+    padding-left: 1rem;
+}
+
+.move:first-child {
+    border-bottom: 3px solid black;
+}

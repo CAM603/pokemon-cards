@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation/Navigation";
+import PokemonList from "./Pages/PokemonList/PokemonList";
+import Pokemon from "./Pages/Pokemon/Pokemon";
+import Home from "./Pages/Home/Home";
+
+import "./App.css";
+import SavedPokemon from "./Pages/SavedPokemon/SavedCards";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [notifications, setNotifications] = useState(0);
+
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<Navigation notifications={notifications} setNotifications={setNotifications} />}>
+                    <Route index element={<Home />} />
+                    <Route path="/pokemon-list" element={<PokemonList />} />
+                    <Route path="/pokemon-list/:id" element={<Pokemon notifications={notifications} setNotifications={setNotifications} />} />
+                    <Route path="/my-pokemon" element={<SavedPokemon notifications={notifications} setNotifications={setNotifications} />} />
+                </Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

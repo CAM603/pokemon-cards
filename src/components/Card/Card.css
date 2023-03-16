@@ -1,0 +1,114 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    height: 490px;
+    width: 348px;
+    position: relative;
+    margin: 10px;
+}
+
+.pokemon-card {
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 200;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.pokemon-card.fire {
+    background-image: url(../../images/fire.png);
+}
+
+.pokemon-card.electric {
+    background-image: url(../../images/electric.png);
+}
+
+.pokemon-card.leaf {
+    background-image: url(../../images/leaf.png);
+}
+
+.pokemon-card.water {
+    background-image: url(../../images/water.png);
+}
+
+.pokemon-card.psychic {
+    background-image: url(../../images/psychic.png);
+}
+
+.pokemon-card.fighting {
+    background-image: url(../../images/fighting.png);
+}
+
+.pokemon-card.normal {
+    background-image: url(../../images/normal.png);
+}
+
+.pokemon-card.default {
+    background-image: url(../../images/electric.png);
+}
+
+.sprite-container {
+    position: absolute;
+    top: 59px;
+    width: 340px;
+    height: 192px;
+    /* border: solid black 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: url(../../images/backgrounds/field.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: radial-gradient( circle farthest-corner at 7.2% 13.6%,  rgba(37,249,245,1) 0%, rgba(8,70,218,1) 90% );; */
+}
+
+.sprite-container, #pokemon-image {
+    max-height: 192px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.moves-container {
+    position: absolute;
+    bottom: 91px;
+    width: 292px;
+    height: 121px;
+    display: flex;
+}
+
+.moves {
+    width: 100%;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.name {
+    font-weight: bold;
+    position: absolute;
+    z-index: 300;
+    
+    left: 90px;
+}
+
+.name.long {
+    font-size: 12px;
+    top: 42px;
+}
+
+.name.short {
+    top: 37px;
+}
+
+.hp {
+    font-weight: bold;
+    position: absolute;
+    z-index: 300;
+    top: 37px;
+    right: 66px;
+}

@@ -1,0 +1,15 @@
+.filters-container {
+   width: 400px;
+}
+
+.filter {
+    margin: 1rem;
+    padding: 5px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.filter.selected {
+    background: #3269B2;
+    color: #eeeeee
+}

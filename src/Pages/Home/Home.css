@@ -1,0 +1,24 @@
+.home-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.controls-container {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-pokemon {
+    height: 200px;
+}
+
+.pokemon-link {
+    text-decoration: none;
+    font-weight: bold;
+}

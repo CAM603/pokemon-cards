@@ -1,0 +1,16 @@
+.pokemon-page {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.controls {
+    width: 348px;
+}
+
+.fab:hover {
+    color: black;
+    transition: .25s;
+}
