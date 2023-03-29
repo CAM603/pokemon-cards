@@ -19,12 +19,12 @@ const Navigation = ({ notifications }) => {
                     <AppBar position="relative" style={{ backgroundColor: "#E5082A" }}>
                         <Toolbar>
                             <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} to="/">
-                                <HomeSharpIcon />
+                                <HomeSharpIcon fontSize="large" />
                             </Link>
                             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
                             <Link className={`nav-link ${location.pathname === "/my-pokemon" ? "active" : ""}`} to="/my-pokemon">
                                 <Badge color="primary" badgeContent={notifications}>
-                                    <SnippetFolderSharpIcon />
+                                    <SnippetFolderSharpIcon fontSize="large" />
                                 </Badge>
                             </Link>
                         </Toolbar>
