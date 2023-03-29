@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
 import { useTheme } from "@mui/material/styles";
 import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
+import { Fab } from "@mui/material";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+// import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+
 import "./Pokemon.css";
 import { Card } from "../../components/Card/Card";
-import { Fab } from "@mui/material";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { AutoAlert } from "../../components/Alert/Alert";
 
 const Pokemon = ({ setNotifications }) => {
     const { id } = useParams();
@@ -23,6 +26,7 @@ const Pokemon = ({ setNotifications }) => {
     const [moveIndex2, setMoveIndex2] = useState(1);
     const [activeStep, setActiveStep] = useState(0);
     const [savedPokemon, setSavedPokemon] = useLocalStorage("savedPokemon", []);
+    const [open, setOpen] = useState(false);
 
     const theme = useTheme();
 
@@ -140,6 +144,7 @@ const Pokemon = ({ setNotifications }) => {
         };
         setSavedPokemon([...savedPokemon, pokemonData]);
         setNotifications((prev) => prev + 1);
+        setOpen(true);
     };
 
     if (pics.length > 0)
@@ -230,6 +235,7 @@ const Pokemon = ({ setNotifications }) => {
                         }
                     />
                 </div>
+                <AutoAlert open={open} setOpen={setOpen} message="Pokemon Saved!" severity="success" />
             </div>
         );
 };
