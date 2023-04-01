@@ -1,4 +1,4 @@
-import { PokemonImage } from "../Image.js/PokemonImage.js";
+import { PokemonImage } from "../Sprite/PokemonImage.js";
 import { Move } from "./Moves.js";
 import "./Card.css";
 export const Card = ({ pokemon, className, clickHandler }) => {
