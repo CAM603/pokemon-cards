@@ -17,7 +17,6 @@ export const RotatingImage = ({ pictures, alt, setIdCallback, className }) => {
     useEffect(() => {
         intervalRef.current = createInterval();
         return () => {
-            console.log("cleared");
             clearInterval(intervalRef.current);
         };
     }, [createInterval]);
@@ -39,7 +38,6 @@ export const RotatingImage = ({ pictures, alt, setIdCallback, className }) => {
             image.classList.remove("bounce");
         }, 1000);
     };
-    // console.log(pictures);
 
     return (
         <Box sx={{ width: "100%", paddingBottom: "4rem", textAlign: "center" }}>

@@ -15,16 +15,13 @@ const PokemonList = () => {
                 cancelToken: new axios.CancelToken((c) => (cancel = c))
             })
             .then((res) => {
-                console.log(res);
                 setLoading(false);
                 setPokemon(res.data.results.map((pokemon) => pokemon.name));
-                //   setPokemonInfo(res.data.results.map(pokemon => pokemon.url))
             })
             .catch((err) => {
                 console.log(err);
             });
         return () => cancel();
-        console.log("RAN");
     }, [page]);
 
     function goToNextPage() {

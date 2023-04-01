@@ -1,18 +1,18 @@
-import { Button, LinearProgress } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../Hooks/useLocalStorage.js";
-import { RotatingImage } from "../../components/Image.js/RotatingImage.js.js";
+import { RotatingImage } from "../../components/Sprite/RotatingImage.js";
 import { TypeFilter } from "../../components/Filters/Type";
 import "./Home.css";
 
 const Home = () => {
-    const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
     const [filters, setFilters] = useState([]);
-    const [id, setId] = useState();
     const [pokemon, setPokemon] = useLocalStorage("allPokemon", []);
+    const [loading, setLoading] = useState(pokemon.length ? false : true);
+    const navigate = useNavigate();
 
     const fetchAll = () => {
         let pokemonList = [];
@@ -55,9 +55,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        if (pokemon.length) {
-            setLoading(false);
-        } else {
+        if (!pokemon.length) {
             fetchAll();
         }
     }, []);
@@ -82,8 +80,12 @@ const Home = () => {
     // };
 
     const setIdCallback = (id) => {
-        setShowDetails(!showDetails);
-        setId(id);
+        setTimeout(() => {
+            setShowDetails(true);
+        }, 500);
+        setTimeout(() => {
+            navigate(`/pokemon-list/${id}`);
+        }, 1500);
     };
 
     const selectFilter = ({ target: { value } }) => {
@@ -91,17 +93,10 @@ const Home = () => {
     };
 
     const generateControls = () => (
-        <div className="controls-container">
+        <div className={`controls-container fade-in ${showDetails ? "fade-out" : ""}`}>
             <RotatingImage className="main-pokemon" pictures={filteredPics} alt="test" setIdCallback={setIdCallback} />
-            {showDetails ? (
-                <Link to={`/pokemon-list/${id}`} className="pokemon-link">
-                    <Button className="choose-button" size="large" style={{ backgroundColor: "#3269B2", fontWeight: "bold" }} variant="contained">
-                        Choose
-                    </Button>
-                </Link>
-            ) : (
-                <TypeFilter filters={filters} selectFilter={selectFilter} />
-            )}
+
+            <TypeFilter filters={filters} selectFilter={selectFilter} />
         </div>
     );
 

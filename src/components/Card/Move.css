@@ -6,5 +6,10 @@
 }
 
 .move:first-child {
-    border-bottom: 3px solid black;
+    border-bottom: 2px solid black;
+}
+
+.desc {
+    font-weight: 500;
+    font-size: 12px;
 }

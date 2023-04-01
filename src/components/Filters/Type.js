@@ -63,7 +63,7 @@ export const TypeFilter = ({ filters, selectFilter }) => {
             fontWeight: filterNames.indexOf(type) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium
         };
     };
-    console.log(types);
+
     return (
         <FormControl sx={{ m: 0, width: 300 }}>
             <InputLabel>Types</InputLabel>

@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
-import { Fab } from "@mui/material";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-// import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
 import "./Pokemon.css";
 import { Card } from "../../components/Card/Card";
@@ -24,17 +19,13 @@ const Pokemon = ({ setNotifications }) => {
     const [picIndex, setPicIndex] = useState(2);
     const [moveIndex1, setMoveIndex1] = useState(0);
     const [moveIndex2, setMoveIndex2] = useState(1);
-    const [activeStep, setActiveStep] = useState(0);
     const [savedPokemon, setSavedPokemon] = useLocalStorage("savedPokemon", []);
     const [open, setOpen] = useState(false);
-
-    const theme = useTheme();
 
     useEffect(() => {
         axios
             .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
             .then((res) => {
-                console.log(res);
                 setName(capitalize(res.data.name.split("-")[0]));
                 setPics(extractPics(res.data.sprites));
                 setMoves(res.data.moves);
@@ -102,32 +93,28 @@ const Pokemon = ({ setNotifications }) => {
         // nothing
     }
 
-    const handleNext = () => {
-        onShowSizeChange();
-        setActiveStep((prevActiveStep) => {
-            if (prevActiveStep === 9) {
+    const onShowSizeChange = () => {
+        setPicIndex((prevIndex) => {
+            if (prevIndex === pics.length - 1) {
                 return 0;
             } else {
-                return prevActiveStep + 1;
+                return prevIndex + 1;
             }
         });
-    };
-
-    const handleBack = () => {
-        onShowSizeChange();
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    // TODO
-    // const handleStepChange = (step) => {
-    //     onShowSizeChange()
-    //     setActiveStep(step);
-    // };
-
-    const onShowSizeChange = () => {
-        setPicIndex(Math.floor(Math.random() * pics.length));
-        setMoveIndex1(Math.floor(Math.random() * moves.length));
-        setMoveIndex2(Math.floor(Math.random() * moves.length));
+        setMoveIndex1((prevIndex) => {
+            if (prevIndex === moves.length - 1) {
+                return 0;
+            } else {
+                return prevIndex + 1;
+            }
+        });
+        setMoveIndex2((prevIndex) => {
+            if (prevIndex === moves.length - 1) {
+                return 0;
+            } else {
+                return prevIndex + 1;
+            }
+        });
     };
 
     const saveHandler = () => {
@@ -140,7 +127,7 @@ const Pokemon = ({ setNotifications }) => {
                 className: className,
                 alt: name
             },
-            moves: [moves[moveIndex1].move, moves[moveIndex2].move]
+            moves: [moves[moveIndex1]?.move, moves[moveIndex2]?.move]
         };
         setSavedPokemon([...savedPokemon, pokemonData]);
         setNotifications((prev) => prev + 1);
@@ -150,34 +137,6 @@ const Pokemon = ({ setNotifications }) => {
     if (pics.length > 0)
         return (
             <div className="pokemon-page">
-                {/* DO LATER */}
-                {/* Create a list of posssible combinations and then map through them below */}
-
-                {/* <AutoPlaySwipeableViews
-                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                        index={activeStep}
-                        onChangeIndex={handleStepChange}
-                        enableMouseEvents
-                    >
-                        {images.map((step, index) => (
-                        <div key={step.label}>
-                            {Math.abs(activeStep - index) <= 2 ? (
-                            <Box
-                                component="img"
-                                sx={{
-                                height: 255,
-                                display: 'block',
-                                maxWidth: 400,
-                                overflow: 'hidden',
-                                width: '100%',
-                                }}
-                                src={step.imgPath}
-                                alt={step.label}
-                            />
-                            ) : null}
-                        </div>
-                        ))}
-                    </AutoPlaySwipeableViews> */}
                 <Card
                     pokemon={{
                         name: name,
@@ -188,54 +147,16 @@ const Pokemon = ({ setNotifications }) => {
                             className: className,
                             alt: name
                         },
-                        moves: [moves[moveIndex1].move, moves[moveIndex2].move]
+                        moves: [moves[moveIndex1]?.move, moves[moveIndex2]?.move]
                     }}
-                    saveHandler={saveHandler}
+                    clickHandler={onShowSizeChange}
                 />
                 <div className="controls">
-                    {/* <Pagination
-                        onChange={onShowSizeChange}
-                        responsive={true}
-                        pageSize={1}
-                        defaultCurrent={1}
-                        total={5}
-                        showQuickJumper={false}
-                        hideOnSinglePage={true}
-                    />
-                    <Button className="button" onClick={saveHandler} type="primary" shape="round" icon={<DownloadOutlined />} size="large">
+                    <Button size="large" className="save-button" variant="contained" onClick={saveHandler}>
                         Save
-                    </Button> */}
-                    <Fab
-                        sx={{
-                            color: "white",
-                            backgroundColor: "#E5082A"
-                        }}
-                        className="fab"
-                        onClick={saveHandler}
-                    >
-                        <AddRoundedIcon className="icon" fontSize="medium" />
-                    </Fab>
-                    <MobileStepper
-                        steps={10}
-                        position="static"
-                        activeStep={activeStep}
-                        nextButton={
-                            <Button style={{ backgroundColor: "#3269B2" }} size="medium" variant="contained" onClick={handleNext}>
-                                Next
-                                {/* {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
-                            </Button>
-                            // <KeyboardArrowRight />
-                        }
-                        backButton={
-                            <Button className="back-button" size="medium" variant="outlined" onClick={handleBack} disabled={activeStep === 0}>
-                                {/* {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
-                                Back
-                            </Button>
-                            // <KeyboardArrowLeft />
-                        }
-                    />
+                    </Button>
                 </div>
-                <AutoAlert open={open} setOpen={setOpen} message="Pokemon Saved!" severity="success" />
+                <AutoAlert open={open} setOpen={setOpen} message="Pokemon Saved!" severity="success" vertical="bottom" horizontal="left" />
             </div>
         );
 };
