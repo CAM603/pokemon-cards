@@ -11,8 +11,9 @@ const SavedPokemon = ({ setNotifications, notifications }) => {
             setNotifications(0);
         }
     }, []);
+
     return (
-        <div className="saved-page">
+        <div className="saved-page fade-in">
             {savedPokemon.map((pokemon) => {
                 return <Card pokemon={pokemon} key={pokemon.name} />;
             })}

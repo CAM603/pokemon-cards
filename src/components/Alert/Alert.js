@@ -6,7 +6,7 @@ const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const AutoAlert = ({ open, setOpen, message, severity }) => {
+export const AutoAlert = ({ open, setOpen, message, severity, vertical, horizontal }) => {
     const handleClose = () => {
         setTimeout(() => {
             setOpen(false);
@@ -14,7 +14,7 @@ export const AutoAlert = ({ open, setOpen, message, severity }) => {
     };
 
     return (
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical, horizontal }}>
             <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
                 {message}
             </Alert>

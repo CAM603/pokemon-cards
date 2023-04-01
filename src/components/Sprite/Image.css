@@ -1,0 +1,43 @@
+.bounce {
+    animation: bounce 0.5s ;
+
+}
+@keyframes bounce {
+    from, to { transform: scale(1, 1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
+}
+
+.roll-in {
+    animation: roll-in .9s  infinite;
+}
+@keyframes roll-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%) rotate(-120deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px) rotate(0deg);
+    }
+}
+
+.image-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image {
+    height: 100px;
+}
+
+.button {
+    height: 50px;
+}
+
+.spin-container {
+    padding: 100px 0;
+}

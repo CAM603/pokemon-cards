@@ -5,6 +5,14 @@
     width: 348px;
     position: relative;
     margin: 10px;
+    cursor: pointer;
+    animation-name: slide;
+    animation-duration: 2s;
+}
+
+@keyframes slide {
+    0%   {left: 100%; top: 0px;}
+    100% {left: 0px; top: 0px;}
 }
 
 .pokemon-card {

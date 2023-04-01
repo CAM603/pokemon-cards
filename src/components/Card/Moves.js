@@ -16,15 +16,24 @@ export const Move = ({ moveObj }) => {
             return name.charAt(0).toUpperCase() + name.slice(1);
         }
     };
+
+    const findDescription = (descriptions) => {
+        const description = descriptions.find((desc) => desc.language.name === "en");
+        return description.flavor_text;
+    };
+
     const fetchMoves = (url) => {
         axios
             .get(url)
             .then((res) => {
-                console.log(res.data);
-                const moveData = { name: formatMove(res.data.name), desc: res.data.flavor_text_entries[0].flavor_text };
+                const moveData = { name: formatMove(res.data.name), desc: findDescription(res.data.flavor_text_entries) };
                 setMove(moveData);
             })
             .catch((err) => console.log(err));
     };
-    return <div className="move">{move.name}</div>;
+    return (
+        <div className="move">
+            {move.name} <span className="desc">{move.desc}</span>
+        </div>
+    );
 };

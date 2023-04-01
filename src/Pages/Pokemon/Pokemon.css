@@ -1,16 +1,39 @@
 .pokemon-page {
     flex: 1;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
 .controls {
-    width: 348px;
+    padding-top: 20px;
 }
 
-.fab:hover {
-    color: black;
-    transition: .25s;
+.controls .save-button {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    font-weight: bold;
+    width: 100%;
+    animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@media screen and (max-width: 600px) {
+    
+    .pokemon-page {
+        justify-content: flex-end;
+    }
+
+    .controls {
+        width: 100%;
+        padding-top: 40px;
+    }
+
+    .controls .save-button {
+        border-radius: 0;
+    }
 }
